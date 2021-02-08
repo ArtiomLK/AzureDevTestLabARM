@@ -22,5 +22,5 @@ steps:
     csmFile: 'template.json'
     csmParametersFile: 'parameters.json'
     overrideParameters: '-default_location eastus2'
-    deploymentMode: 'Complete'
+    deploymentMode: 'Incremental'
     deploymentName: 'DeployDevTestLabARM'
