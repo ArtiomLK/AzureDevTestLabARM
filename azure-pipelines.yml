@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-default
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'AzureDevTestLab'
+    subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'rg-citizen-dev'
+    location: 'East US 2'
+    templateLocation: 'Linked artifact'
+    csmFile: 'template.json'
+    csmParametersFile: 'parameters.json'
+    overrideParameters: '-default_location eastus2'
+    deploymentMode: 'Complete'
+    deploymentName: 'DeployDevTestLabARM'
