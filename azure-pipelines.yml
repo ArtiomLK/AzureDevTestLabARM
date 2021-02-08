@@ -13,7 +13,7 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureDevTestLab'
+    azureResourceManagerConnection: 'AzureDevTestLabARM'
     subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'rg-citizen-dev'
