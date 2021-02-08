@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "default_location": {
-            "defaultValue": "eastus",
+            "defaultValue": "[resourceGroup().location]",
             "type": "string",
             "metadata": {
-                "description": "description"
+                "description": "Location for all resources."
             }
         },
         "default_tags": {
@@ -16,14 +16,14 @@
             },
             "type": "object",
             "metadata": {
-                "description": "description"
+                "description": "Tags for all resources."
             }
         },
         "dev-and-test-lab-name": {
             "defaultValue": "dev-citizen",
             "type": "string",
             "metadata": {
-                "description": "description"
+                "description": "The name of the new lab instance to be created"
             }
         }
     },
