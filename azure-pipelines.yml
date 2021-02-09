@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- group: dev
+
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
@@ -21,6 +24,6 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'template.json'
     csmParametersFile: 'parameters.json'
-    overrideParameters: '-default_location eastus2'
+    overrideParameters: '-default_location eastus2 -vmUserName $vmUserName -vmPassword $vmPassword'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployDevTestLabARM'
