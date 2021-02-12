@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 20,
+      "metadata": {
+        "description": "Specify a project name that is used to generate resource names."
+      }
+    },
+    "env": {
+      "type": "string",
+      "defaultValue": "dev",
+      "allowedValues": ["dev", "prod", "qa", "staginng"],
+      "metadata": {
+        "description": "description"
+      }
+    }
+  },
+  "variables": {
+    "default_tags": {
+      "project": "[parameters('projectName')]",
+      "env": "[parameters('env')]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "linkedTemplate",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "template.json"
+        },
+        "parameters": {
+          "projectName": {
+            "value": "[parameters('projectName')]"
+          },
+          "env": {
+            "value": "[parameters('env')]"
+          }
+        }
+      },
+      "tags": "[variables('default_tags')]"
+    }
+  ],
+  "outputs": {}
+}
