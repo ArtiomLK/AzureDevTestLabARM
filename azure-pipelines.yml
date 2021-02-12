@@ -23,6 +23,5 @@ steps:
       location: 'East US 2'
       templateLocation: 'Linked artifact'
       csmFile: 'linkedTemplate.json'
-      csmParametersFile: 'mainParameters.json'
       deploymentMode: 'Incremental'
       deploymentName: 'DeployDevTestLabARM'
