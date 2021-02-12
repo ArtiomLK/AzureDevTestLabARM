@@ -1,45 +1,40 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "default_location": {
-            "defaultValue": "[resourceGroup().location]",
-            "type": "string",
-            "metadata": {
-                "description": "Location for all resources."
-            }
-        },
-        "default_tags": {
-            "defaultValue": {
-                "env": "dev",
-                "project": "devandtestlabs"
-            },
-            "type": "object",
-            "metadata": {
-                "description": "Tags for all resources."
-            }
-        },
-        "dev-and-test-lab-name": {
-            "defaultValue": "dev-citizen",
-            "type": "string",
-            "metadata": {
-                "description": "The name of the new lab instance to be created"
-            }
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "defaultValue": "citizen-developer",
+      "type": "string",
+      "metadata": {
+        "description": "The name of the new lab instance to be created"
+      }
     },
-    "functions": [],
-    "variables": {},
-    "resources": [
-        {
-            "name": "[parameters('dev-and-test-lab-name')]",
-            "type": "Microsoft.DevTestLab/labs",
-            "apiVersion": "2018-09-15",
-            "location": "[parameters('default_location')]",
-            "tags": "[parameters('default_tags')]",
-            "properties": {
-            },
-            "resources": []
-        }
-    ],
-    "outputs": {}
+    "env": {
+      "type": "string",
+      "defaultValue": "dev",
+      "allowedValues": ["dev", "prod", "qa", "staginng"],
+      "metadata": {
+        "description": "description"
+      }
+    }
+  },
+  "functions": [],
+  "variables": {
+    "default_tags": {
+      "project": "[parameters('projectName')]",
+      "env": "[parameters('env')]"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('projectName')]",
+      "type": "Microsoft.DevTestLab/labs",
+      "apiVersion": "2018-09-15",
+      "location": "[resourceGroup().location]",
+      "tags": "[variables('default_tags')]",
+      "properties": {},
+      "resources": []
+    }
+  ],
+  "outputs": {}
 }

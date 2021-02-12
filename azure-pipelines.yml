@@ -4,26 +4,26 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
-- group: dev
+  - group: dev
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureDevTestLabARM'
-    subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'rg-citizen-dev'
-    location: 'East US 2'
-    templateLocation: 'Linked artifact'
-    csmFile: 'template.json'
-    csmParametersFile: 'parameters.json'
-    overrideParameters: '-default_location eastus2 -vmUserName $vmUserName -vmPassword $vmPassword'
-    deploymentMode: 'Incremental'
-    deploymentName: 'DeployDevTestLabARM'
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'AzureDevTestLabARM'
+      subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'rg-dtl-test'
+      location: 'East US 2'
+      templateLocation: 'Linked artifact'
+      csmFile: 'template.json'
+      csmParametersFile: 'parameters.json'
+      overrideParameters: '-vmUserName $vmUserName -vmPassword $vmPassword'
+      deploymentMode: 'Incremental'
+      deploymentName: 'DeployDevTestLabARM'

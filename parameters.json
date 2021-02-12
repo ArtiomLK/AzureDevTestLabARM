@@ -2,17 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "default_location": {
-            "value": "eastus"
+        "projectName": {
+            "value": "citizenDeveloper"
         },
-        "default_tags": {
-            "value": {
-                "env": "dev",
-                "project": "devandtestlabs"
-            }
-        },
-        "dev-and-test-lab-name": {
-            "value": "dev-citizen"
+        "env": {
+            "value": "dev"
         }
     }
 }
