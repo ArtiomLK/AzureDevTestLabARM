@@ -22,6 +22,7 @@ steps:
       resourceGroupName: 'rg-dtl-test'
       location: 'East US 2'
       templateLocation: 'Linked artifact'
-      csmFile: 'linkedTemplate.json'
+      csmFile: 'mainTemplate.json'
+      csmParametersFile: 'mainParameters.json'
       deploymentMode: 'Incremental'
       deploymentName: 'DeployDevTestLabARM'
