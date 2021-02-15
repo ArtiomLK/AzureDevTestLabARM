@@ -13,7 +13,7 @@
     "env": {
       "type": "string",
       "defaultValue": "dev",
-      "allowedValues": ["dev", "prod", "qa", "staginng"],
+      "allowedValues": [ "dev", "prod", "qa", "staginng" ],
       "metadata": {
         "description": "description"
       }

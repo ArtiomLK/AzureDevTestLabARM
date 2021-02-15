@@ -13,16 +13,12 @@ variables:
   - group: dev
 
 steps:
-  - task: AzureResourceManagerTemplateDeployment@3
+  - task: AzurePowerShell@5
     inputs:
-      deploymentScope: 'Resource Group'
-      azureResourceManagerConnection: 'AzureDevTestLabARM'
-      subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
-      action: 'Create Or Update Resource Group'
-      resourceGroupName: 'rg-dtl-test'
-      location: 'East US 2'
-      templateLocation: 'Linked artifact'
-      csmFile: 'mainTemplate.json'
-      csmParametersFile: 'mainParameters.json'
-      deploymentMode: 'Incremental'
-      deploymentName: 'DeployDevTestLabARM'
+      azureSubscription: 'AzureDevTestLabARM'
+      ScriptType: 'FilePath'
+      ScriptPath: './arm-deploy.ps1'
+      ScriptArguments: -projectName 'dtl-citizen' `
+        -environment 'qa' `
+        -location 'eastus'
+      azurePowerShellVersion: 'LatestVersion'
