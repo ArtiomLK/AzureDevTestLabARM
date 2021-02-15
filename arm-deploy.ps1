@@ -1,8 +1,5 @@
 param (
 	[Parameter(Mandatory)]
-	$subscriptionId,
-		
-	[Parameter(Mandatory)]
 	$projectName,
 	
 	[ValidateSet('prod','uat','qa','dev','test')]
@@ -22,13 +19,6 @@ if ($environmentSuffix -eq '-prod')
 
 ##Resource Names
 $resourceGroupName = "rg-$projectName$environmentSuffix";
-
-#set subscription
-az account set -s $subscriptionId
-$subDetails = az account show | ConvertFrom-Json
-
-$subName = $subDetails.name
-Write-Host "Using Subscription '$subName'"
 
 #create resource group
 $checkRG = az group exists -g $resourceGroupName
