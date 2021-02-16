@@ -13,9 +13,16 @@ variables:
   - group: prod
 
 steps:
-  - task: AzureCLI@2
+  - task: AzureResourceManagerTemplateDeployment@3
     inputs:
-      azureSubscription: 'arm-rg-dtl-sc'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: 'az deployment group create -n rollout0 -g $(rgName) -f mainTemplate.json -p projectName=$(projectName) env=$(env)'
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'arm-rg-dtl-sc'
+      subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'rg-dtl'
+      location: 'East US 2'
+      templateLocation: 'URL of the file'
+      csmFileLink: 'https://raw.githubusercontent.com/ArtiomLK/AzureDevTestLabARM/main/mainTemplate.json'
+      csmParametersFileLink: 'https://raw.githubusercontent.com/ArtiomLK/AzureDevTestLabARM/main/mainParameters.json'
+      deploymentMode: 'Incremental'
+      deploymentName: 'DeployDevTestLabARM'
