@@ -23,6 +23,6 @@ steps:
       location: 'East US 2'
       templateLocation: 'URL of the file'
       csmFileLink: 'https://raw.githubusercontent.com/ArtiomLK/AzureDevTestLabARM/main/.devops/mainT.json'
-      overrideParameters: '-projectName $(projectName) -env $(env)'
+      overrideParameters: '-projectName $(projectName) -env $(env) -vnetAddressPrefix $(vnetAddressPrefix) -subnet1Prefix $(subnet1Prefix) -subnet2Prefix $(subnet2Prefix)'
       deploymentMode: 'Incremental'
       deploymentName: 'DeployDevTestLabARM'

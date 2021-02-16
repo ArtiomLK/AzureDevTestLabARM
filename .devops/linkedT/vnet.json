@@ -1,0 +1,97 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "defaultValue": "sampleProject",
+      "minLength": 3,
+      "maxLength": 20,
+      "metadata": {
+        "description": "Specify a project name that is used to generate resource names."
+      }
+    },
+    "env": {
+      "type": "string",
+      "defaultValue": "dev",
+      "allowedValues": [ "dev", "prod", "qa", "staginng" ],
+      "metadata": {
+        "description": "description"
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "Address prefix"
+      }
+    },
+    "subnet1Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "Subnet 1 Prefix"
+      }
+    },
+    "subnet2Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "Subnet 2 Prefix"
+      }
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "vnetName": "[concat(parameters('projectName'),'-vnet')]",
+    "subnet1Name": "[concat(parameters('projectName'), '-snet1')]",
+    "subnet2Name": "[concat(parameters('projectName'), '-snet2')]",
+    "default_tags": {
+      "project": "[parameters('projectName')]",
+      "env": "[parameters('env')]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2020-05-01",
+      "name": "[variables('vnetName')]",
+      "location": "[variables('location')]",
+      "tags": "[variables('default_tags')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetAddressPrefix')]"
+          ]
+        }
+      },
+      "resources": [
+        {
+          "type": "subnets",
+          "apiVersion": "2020-05-01",
+          "location": "[variables('location')]",
+          "name": "[variables('subnet1Name')]",
+          "dependsOn": [
+            "[variables('vnetName')]"
+          ],
+          "properties": {
+            "addressPrefix": "[parameters('subnet1Prefix')]"
+          }
+        },
+        {
+          "type": "subnets",
+          "apiVersion": "2020-05-01",
+          "location": "[variables('location')]",
+          "name": "[variables('subnet2Name')]",
+          "dependsOn": [
+            "[variables('vnetName')]",
+            "[variables('subnet1Name')]"
+          ],
+          "properties": {
+            "addressPrefix": "[parameters('subnet2Prefix')]"
+          }
+        }
+      ]
+    }
+  ]
+}
