@@ -18,4 +18,4 @@ steps:
       azureSubscription: 'arm-rg-dtl-sc'
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: 'az deployment group create -g $(rgName) -f mainTemplate.json -p projectName=$(projectName) env=$(env)'
+      inlineScript: 'az deployment group create -n rollout0 -g $(rgName) -f mainTemplate.json -p projectName=$(projectName) env=$(env)'
