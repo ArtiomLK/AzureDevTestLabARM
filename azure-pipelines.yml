@@ -10,15 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  - group: dev
+  - group: prod
 
 steps:
-  - task: AzurePowerShell@5
+  - task: AzureCLI@2
     inputs:
-      azureSubscription: 'AzureDevTestLabARM'
-      ScriptType: 'FilePath'
-      ScriptPath: './arm-deploy.ps1'
-      ScriptArguments: -projectName 'dtl-citizen' `
-        -environment 'qa' `
-        -location 'eastus'
-      azurePowerShellVersion: 'LatestVersion'
+      azureSubscription: 'arm-rg-dtl-sc'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az deployment group create -g $(rgName) -f mainTemplate.json -p projectName=$(projectName) env=$(env)'
