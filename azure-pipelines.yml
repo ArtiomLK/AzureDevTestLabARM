@@ -22,7 +22,7 @@ steps:
       resourceGroupName: '$(rgName)'
       location: 'East US 2'
       templateLocation: 'URL of the file'
-      csmFileLink: 'https://raw.githubusercontent.com/ArtiomLK/AzureDevTestLabARM/main/mainTemplate.json'
+      csmFileLink: 'https://raw.githubusercontent.com/ArtiomLK/AzureDevTestLabARM/main/.devops/mainT.json'
       overrideParameters: '-projectName $(projectName) -env $(env)'
       deploymentMode: 'Incremental'
       deploymentName: 'DeployDevTestLabARM'
