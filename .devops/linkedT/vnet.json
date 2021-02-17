@@ -60,6 +60,13 @@
       "metadata": {
         "description": "Subnet 2 Prefix"
       }
+    },
+    "nsg1Name": {
+      "type": "string",
+      "defaultValue": "default-nsg",
+      "metadata": {
+        "description": "description"
+      }
     }
   },
   "variables": {
@@ -93,6 +100,10 @@
             "[parameters('vnetName')]"
           ],
           "properties": {
+            "networkSecurityGroup": {
+              "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg1Name'))]",
+              "location": "[variables('location')]"
+            },
             "addressPrefix": "[parameters('subnet1Prefix')]"
           }
         },
@@ -106,6 +117,10 @@
             "[parameters('subnet1Name')]"
           ],
           "properties": {
+            "networkSecurityGroup": {
+              "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg1Name'))]",
+              "location": "[variables('location')]"
+            },
             "addressPrefix": "[parameters('subnet2Prefix')]"
           }
         }

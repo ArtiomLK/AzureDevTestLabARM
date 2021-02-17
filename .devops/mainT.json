@@ -46,12 +46,15 @@
       "project": "[parameters('projectName')]",
       "env": "[parameters('env')]"
     },
+
     "vnetName": "[concat(parameters('projectName'),'-vnet')]",
     "subnet1Name": "[concat(parameters('projectName'), '-snet1')]",
     "subnet2Name": "[concat(parameters('projectName'), '-snet2')]",
+    "nsg1Name": "[concat(parameters('projectName'), '-nsg1')]",
 
     "dtlDeploymenyName": "linkedTemplate-dtl",
-    "vnetDeploymenyName": "linkedTemplate-vnet"
+    "vnetDeploymenyName": "linkedTemplate-vnet",
+    "nsgDeploymenyName": "linkedTemplate-nsg"
   },
   "resources": [
     {
@@ -90,6 +93,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "[variables('vnetDeploymenyName')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', variables('nsgDeploymenyName'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -119,6 +125,32 @@
           },
           "subnet2Prefix": {
             "value": "[parameters('subnet2Prefix')]"
+          },
+          "nsg1Name": {
+            "value": "[variables('nsg1Name')]"
+          }
+        }
+      },
+      "tags": "[variables('default_tags')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[variables('nsgDeploymenyName')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "linkedT/nsgT.json"
+        },
+        "parameters": {
+          "projectName": {
+            "value": "[parameters('projectName')]"
+          },
+          "env": {
+            "value": "[parameters('env')]"
+          },
+          "nsg1Name": {
+            "value": "[variables('nsg1Name')]"
           }
         }
       },
