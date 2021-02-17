@@ -64,20 +64,15 @@
           ],
           "properties": {
             "description": "Existing Compute virtual network associated as part of the lab creation process.",
-            // "externalProviderResourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1",
             "externalProviderResourceId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
             "subnetOverrides": [
               {
-                // "name": "[parameters('subnet1Name')]",
                 "resourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                // "resourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1/subnets/Subnet1",
                 "useInVmCreationPermission": "Allow",
                 "usePublicIpAddressPermission": "Allow"
               },
               {
-                // "name": "[parameters('subnet2Name')]",
                 "resourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]",
-                // "resourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1/subnets/Subnet2",
                 "useInVmCreationPermission": "Allow",
                 "usePublicIpAddressPermission": "Allow"
               }
