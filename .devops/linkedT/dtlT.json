@@ -12,9 +12,30 @@
     "env": {
       "type": "string",
       "defaultValue": "dev",
-      "allowedValues": ["dev", "prod", "qa", "staginng"],
+      "allowedValues": [ "dev", "prod", "qa", "staginng" ],
       "metadata": {
         "description": "description"
+      }
+    },
+    "vnetName": {
+      "type": "string",
+      "defaultValue": "sample-vnet",
+      "metadata": {
+        "description": "description"
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "Subnet1",
+      "metadata": {
+        "description": "Subnet 1 Name"
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "Subnet2",
+      "metadata": {
+        "description": "Subnet 2 Name"
       }
     }
   },
@@ -33,7 +54,37 @@
       "location": "[resourceGroup().location]",
       "tags": "[variables('default_tags')]",
       "properties": {},
-      "resources": []
+      "resources": [
+        {
+          "apiVersion": "2018-09-15",
+          "name": "[parameters('vnetName')]",
+          "type": "virtualNetworks",
+          "dependsOn": [
+            "[resourceId('Microsoft.DevTestLab/labs', parameters('projectName'))]"
+          ],
+          "properties": {
+            "description": "Existing Compute virtual network associated as part of the lab creation process.",
+            // "externalProviderResourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1",
+            "externalProviderResourceId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+            "subnetOverrides": [
+              {
+                // "name": "[parameters('subnet1Name')]",
+                "resourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
+                // "resourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1/subnets/Subnet1",
+                "useInVmCreationPermission": "Allow",
+                "usePublicIpAddressPermission": "Allow"
+              },
+              {
+                // "name": "[parameters('subnet2Name')]",
+                "resourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]",
+                // "resourceId": "/subscriptions/76dfdafe-62fb-468b-8fd9-b6db1c5296ad/resourceGroups/rg-dtl/providers/Microsoft.Network/virtualNetworks/VNet1/subnets/Subnet2",
+                "useInVmCreationPermission": "Allow",
+                "usePublicIpAddressPermission": "Allow"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "outputs": {}

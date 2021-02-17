@@ -19,6 +19,13 @@
         "description": "description"
       }
     },
+    "vnetName": {
+      "type": "string",
+      "defaultValue": "VNet1",
+      "metadata": {
+        "description": "VNet name"
+      }
+    },
     "vnetAddressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
@@ -26,11 +33,25 @@
         "description": "Address prefix"
       }
     },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "Subnet1",
+      "metadata": {
+        "description": "Subnet 1 Name"
+      }
+    },
     "subnet1Prefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/24",
       "metadata": {
         "description": "Subnet 1 Prefix"
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "Subnet2",
+      "metadata": {
+        "description": "Subnet 2 Name"
       }
     },
     "subnet2Prefix": {
@@ -43,9 +64,6 @@
   },
   "variables": {
     "location": "[resourceGroup().location]",
-    "vnetName": "[concat(parameters('projectName'),'-vnet')]",
-    "subnet1Name": "[concat(parameters('projectName'), '-snet1')]",
-    "subnet2Name": "[concat(parameters('projectName'), '-snet2')]",
     "default_tags": {
       "project": "[parameters('projectName')]",
       "env": "[parameters('env')]"
@@ -55,7 +73,7 @@
     {
       "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2020-05-01",
-      "name": "[variables('vnetName')]",
+      "name": "[parameters('vnetName')]",
       "location": "[variables('location')]",
       "tags": "[variables('default_tags')]",
       "properties": {
@@ -70,9 +88,9 @@
           "type": "subnets",
           "apiVersion": "2020-05-01",
           "location": "[variables('location')]",
-          "name": "[variables('subnet1Name')]",
+          "name": "[parameters('subnet1Name')]",
           "dependsOn": [
-            "[variables('vnetName')]"
+            "[parameters('vnetName')]"
           ],
           "properties": {
             "addressPrefix": "[parameters('subnet1Prefix')]"
@@ -82,10 +100,10 @@
           "type": "subnets",
           "apiVersion": "2020-05-01",
           "location": "[variables('location')]",
-          "name": "[variables('subnet2Name')]",
+          "name": "[parameters('subnet2Name')]",
           "dependsOn": [
-            "[variables('vnetName')]",
-            "[variables('subnet1Name')]"
+            "[parameters('vnetName')]",
+            "[parameters('subnet1Name')]"
           ],
           "properties": {
             "addressPrefix": "[parameters('subnet2Prefix')]"

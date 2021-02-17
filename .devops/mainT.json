@@ -45,13 +45,19 @@
     "default_tags": {
       "project": "[parameters('projectName')]",
       "env": "[parameters('env')]"
-    }
+    },
+    "vnetName": "[concat(parameters('projectName'),'-vnet')]",
+    "subnet1Name": "[concat(parameters('projectName'), '-snet1')]",
+    "subnet2Name": "[concat(parameters('projectName'), '-snet2')]",
+
+    "dtlDeploymenyName": "linkedTemplate-dtl",
+    "vnetDeploymenyName": "linkedTemplate-vnet"
   },
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "linkedTemplate-dtl",
+      "name": "[variables('dtlDeploymenyName')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -63,6 +69,15 @@
           },
           "env": {
             "value": "[parameters('env')]"
+          },
+          "vnetName": {
+            "value": "[variables('vnetName')]"
+          },
+          "subnet1Name": {
+            "value": "[variables('subnet1Name')]"
+          },
+          "subnet2Name": {
+            "value": "[variables('subnet2Name')]"
           }
         }
       },
@@ -71,7 +86,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "linkedTemplate-vnet",
+      "name": "[variables('vnetDeploymenyName')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -84,11 +99,20 @@
           "env": {
             "value": "[parameters('env')]"
           },
+          "vnetName": {
+            "value": "[variables('vnetName')]"
+          },
           "vnetAddressPrefix": {
             "value": "[parameters('vnetAddressPrefix')]"
           },
+          "subnet1Name": {
+            "value": "[variables('subnet1Name')]"
+          },
           "subnet1Prefix": {
             "value": "[parameters('subnet1Prefix')]"
+          },
+          "subnet2Name": {
+            "value": "[variables('subnet2Name')]"
           },
           "subnet2Prefix": {
             "value": "[parameters('subnet2Prefix')]"
