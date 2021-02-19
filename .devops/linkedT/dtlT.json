@@ -17,6 +17,11 @@
         "description": "description"
       }
     },
+    "costThreshold": {
+      "type": "int",
+      "defaultValue": 50
+
+    },
     "vnetName": {
       "type": "string",
       "defaultValue": "sample-vnet",
@@ -78,6 +83,41 @@
               }
             ]
           }
+        },
+        {
+          "apiVersion": "2018-09-15",
+          "name": "targetCost",
+          "type": "costs",
+          "properties": {
+            "targetCost": {
+              "cycleType": "CalendarMonth",
+              "status": "Enabled",
+              "target": "[parameters('costThreshold')]",
+              "costThresholds": [
+                {
+                  "thresholdId": "dbf2ba58-cdb1-48ae-ac51-a6f9e29bc764",
+                  "displayOnChart": "Enabled",
+                  "sendNotificationWhenExceeded": "Enabled",
+                  "percentageThreshold": { "thresholdValue": 25 }
+                },
+                {
+                  "thresholdId": "5213d0a1-2327-4566-b66e-d1bb37427b96",
+                  "displayOnChart": "Enabled",
+                  "sendNotificationWhenExceeded": "Enabled",
+                  "percentageThreshold": { "thresholdValue": 50 }
+                },
+                {
+                  "thresholdId": "ef22bf22-597a-4e72-8673-1570ab7db86c",
+                  "displayOnChart": "Enabled",
+                  "sendNotificationWhenExceeded": "Enabled",
+                  "percentageThreshold": { "thresholdValue": 75 }
+                }
+              ]
+            }
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.DevTestLab/labs', parameters('projectName'))]"
+          ]
         }
       ]
     }
