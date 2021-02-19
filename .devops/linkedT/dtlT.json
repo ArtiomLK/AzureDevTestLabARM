@@ -46,6 +46,13 @@
         "description": "A comma-separated list of VM sizes that are allowed in the lab."
       }
     },
+    "allowedBaseImages": {
+      "type": "string",
+      "defaultValue": "\"{\\\"offer\\\":\\\"CentOS\\\",\\\"publisher\\\":\\\"OpenLogic\\\",\\\"sku\\\":\\\"8.0\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\"",
+      "metadata": {
+        "description": "Allowed vm base images"
+      }
+    },
     "vnetName": {
       "type": "string",
       "defaultValue": "sample-vnet",
@@ -74,8 +81,7 @@
       "project": "[parameters('projectName')]",
       "env": "[parameters('env')]"
     },
-    "location": "[resourceGroup().location]",
-    "allowedImages": "\"{\\\"offer\\\":\\\"CentOS\\\",\\\"publisher\\\":\\\"OpenLogic\\\",\\\"sku\\\":\\\"8.0\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\""
+    "location": "[resourceGroup().location]"
   },
   "resources": [
     {
@@ -156,7 +162,7 @@
             "description": "Allowed base images",
             "status": "Enabled",
             "factName": "GalleryImage",
-            "threshold": "[concat('[', trim(variables('allowedImages')), ']')]",
+            "threshold": "[concat('[', trim(parameters('allowedBaseImages')), ']')]",
             "evaluatorType": "AllowedValuesPolicy"
           },
           "dependsOn": [

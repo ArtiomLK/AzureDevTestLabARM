@@ -47,6 +47,13 @@
         "description": "A comma-separated list of VM sizes that are allowed in the lab."
       }
     },
+    "allowedBaseImages": {
+      "type": "string",
+      "defaultValue": "\"{\\\"offer\\\":\\\"CentOS\\\",\\\"publisher\\\":\\\"OpenLogic\\\",\\\"sku\\\":\\\"8.0\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\"",
+      "metadata": {
+        "description": "Allowed vm base images"
+      }
+    },
     "vnetAddressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
@@ -115,6 +122,9 @@
           },
           "allowedVmSizes": {
             "value": "[parameters('allowedVmSizes')]"
+          },
+          "allowedBaseImages": {
+            "value": "[parameters('allowedBaseImages')]"
           },
           "vnetName": {
             "value": "[variables('vnetName')]"
