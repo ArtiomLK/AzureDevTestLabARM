@@ -51,7 +51,7 @@
       "env": "[parameters('env')]"
     },
     "location": "[resourceGroup().location]",
-    "allowedImages": "\"{\\\"offer\\\":\\\"CentOS\\\",\\\"publisher\\\":\\\"OpenLogic\\\",\\\"sku\\\":\\\"7.2\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\",\"{\\\"offer\\\":\\\"Oracle-Linux\\\",\\\"publisher\\\":\\\"Oracle\\\",\\\"sku\\\":\\\"7.2\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\",\"{\\\"offer\\\":\\\"SQL2016-WS2012R2\\\",\\\"publisher\\\":\\\"MicrosoftSQLServer\\\",\\\"sku\\\":\\\"Enterprise\\\",\\\"osType\\\":\\\"Windows\\\",\\\"version\\\":\\\"latest\\\"}\""
+    "allowedImages": "\"{\\\"offer\\\":\\\"CentOS\\\",\\\"publisher\\\":\\\"OpenLogic\\\",\\\"sku\\\":\\\"8.0\\\",\\\"osType\\\":\\\"Linux\\\",\\\"version\\\":\\\"latest\\\"}\""
   },
   "resources": [
     {
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "type": "policpolicySets/policiesies",
+          "type": "policySets/policies",
           "name": "default/GalleryImage",
           "apiVersion": "2018-09-15",
           "location": "[variables('location')]",
