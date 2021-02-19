@@ -38,6 +38,14 @@
         "description": "The maximum number of VMs allowed per lab."
       }
     },
+    "allowedVmSizes": {
+      "type": "string",
+      "defaultValue": "\"Standard_A1_v2\", \"Standard_A2_v2\", \"Standard_D2as_v4\"",
+      "minLength": 3,
+      "metadata": {
+        "description": "A comma-separated list of VM sizes that are allowed in the lab."
+      }
+    },
     "vnetName": {
       "type": "string",
       "defaultValue": "sample-vnet",
@@ -184,6 +192,23 @@
             "factName": "LabVmCount",
             "threshold": "[string(parameters('maxAllowedVmsPerLab'))]",
             "evaluatorType": "MaxValuePolicy"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.DevTestLab/labs', parameters('projectName'))]"
+          ]
+        },
+        {
+          "type": "policySets/policies",
+          "name": "default/AllowedVmSizesInLab",
+          "apiVersion": "2018-09-15",
+          "location": "[variables('location')]",
+          "tags": "[variables('default_tags')]",
+          "properties": {
+            "description": "Maximum allowed VMs sizes",
+            "status": "Enabled",
+            "factName": "LabVmSize",
+            "threshold": "[concat('[', trim(parameters('allowedVmSizes')), ']')]",
+            "evaluatorType": "AllowedValuesPolicy"
           },
           "dependsOn": [
             "[resourceId('Microsoft.DevTestLab/labs', parameters('projectName'))]"
