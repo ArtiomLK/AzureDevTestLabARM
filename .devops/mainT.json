@@ -31,6 +31,14 @@
         "description": "The maximum number of VMs allowed per user."
       }
     },
+    "maxAllowedVmsPerLab": {
+      "type": "int",
+      "defaultValue": 10,
+      "minValue": 0,
+      "metadata": {
+        "description": "The maximum number of VMs allowed per lab."
+      }
+    },
     "vnetAddressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
@@ -93,6 +101,9 @@
           },
           "maxAllowedVmsPerUser": {
             "value": "[parameters('maxAllowedVmsPerUser')]"
+          },
+          "maxAllowedVmsPerLab": {
+            "value": "[parameters('maxAllowedVmsPerLab')]"
           },
           "vnetName": {
             "value": "[variables('vnetName')]"

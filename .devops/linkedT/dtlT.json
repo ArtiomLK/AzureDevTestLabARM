@@ -30,6 +30,14 @@
         "description": "The maximum number of VMs allowed per user."
       }
     },
+    "maxAllowedVmsPerLab": {
+      "type": "int",
+      "defaultValue": 10,
+      "minValue": 0,
+      "metadata": {
+        "description": "The maximum number of VMs allowed per lab."
+      }
+    },
     "vnetName": {
       "type": "string",
       "defaultValue": "sample-vnet",
@@ -158,6 +166,23 @@
             "status": "Enabled",
             "factName": "UserOwnedLabVmCount",
             "threshold": "[string(parameters('maxAllowedVmsPerUser'))]",
+            "evaluatorType": "MaxValuePolicy"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.DevTestLab/labs', parameters('projectName'))]"
+          ]
+        },
+        {
+          "type": "policySets/policies",
+          "name": "default/MaxVmsAllowedPerLab",
+          "apiVersion": "2018-09-15",
+          "location": "[variables('location')]",
+          "tags": "[variables('default_tags')]",
+          "properties": {
+            "description": "Maximum allowed VMs per lab",
+            "status": "Enabled",
+            "factName": "LabVmCount",
+            "threshold": "[string(parameters('maxAllowedVmsPerLab'))]",
             "evaluatorType": "MaxValuePolicy"
           },
           "dependsOn": [
