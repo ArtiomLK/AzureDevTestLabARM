@@ -23,6 +23,14 @@
       "type": "int",
       "defaultValue": 50
     },
+    "maxAllowedVmsPerUser": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 0,
+      "metadata": {
+        "description": "The maximum number of VMs allowed per user."
+      }
+    },
     "vnetAddressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
@@ -82,6 +90,9 @@
           },
           "costThreshold": {
             "value": "[parameters('costThreshold')]"
+          },
+          "maxAllowedVmsPerUser": {
+            "value": "[parameters('maxAllowedVmsPerUser')]"
           },
           "vnetName": {
             "value": "[variables('vnetName')]"
