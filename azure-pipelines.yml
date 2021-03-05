@@ -16,8 +16,8 @@ steps:
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
       deploymentScope: 'Resource Group'
-      azureResourceManagerConnection: 'arm-rg-dtl-payg-sc'
-      subscriptionId: '76dfdafe-62fb-468b-8fd9-b6db1c5296ad'
+      azureResourceManagerConnection: 'arm-rg-dtl-sc'
+      subscriptionId: '3ab0f28a-f137-4e85-9c80-8169c20ab6ad'
       action: 'Create Or Update Resource Group'
       resourceGroupName: '$(rgName)'
       location: 'East US 2'
